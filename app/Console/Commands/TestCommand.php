@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\AddConversionAction;
 use App\AuthenticateInDesktopApplication;
 use App\AuthenticateInWebApplication;
 use App\GetCampaigns;
@@ -14,6 +15,8 @@ use Google\Cloud\Storage\StorageClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Dcat\EasyExcel\Excel;
+use Google\Ads\GoogleAds\Lib\V8\GoogleAdsClient;
+use Google\Ads\GoogleAds\V8\Services\ConversionActionServiceClient;
 
 class TestCommand extends Command
 {
@@ -104,5 +107,22 @@ class TestCommand extends Command
     {
         GetCampaigns::main();
         // UploadOfflineConversion::main();
+    }
+    public function test5()
+    {
+        AddConversionAction::main();
+    }
+    public function test6()
+    {
+        $googleAdsClient = app(GoogleAdsClient::class);
+        /** @var  ConversionActionServiceClient $conversionActionServiceClient */
+        $conversionActionServiceClient = $googleAdsClient->getConversionActionServiceClient();
+        try {
+            $formattedResourceName = $conversionActionServiceClient->conversionActionName('5173102433' , '324840352');
+            $response = $conversionActionServiceClient->getConversionAction($formattedResourceName);
+            dump($response);
+        } finally {
+            $conversionActionServiceClient->close();
+        }
     }
 }

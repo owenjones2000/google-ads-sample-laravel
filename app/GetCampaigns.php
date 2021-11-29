@@ -93,6 +93,7 @@ class GetCampaigns
 
         // Iterates over all rows in all messages and prints the requested field values for
         // the campaign in each row.
+        
         foreach ($stream->iterateAllElements() as $googleAdsRow) {
             /** @var GoogleAdsRow $googleAdsRow */
             printf(
@@ -101,6 +102,7 @@ class GetCampaigns
                 $googleAdsRow->getCampaign()->getName(),
                 PHP_EOL
             );
+            dump($googleAdsRow);
         }
     }
 }
