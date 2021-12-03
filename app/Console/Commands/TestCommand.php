@@ -118,9 +118,9 @@ class TestCommand extends Command
         /** @var  ConversionActionServiceClient $conversionActionServiceClient */
         $conversionActionServiceClient = $googleAdsClient->getConversionActionServiceClient();
         try {
-            $formattedResourceName = $conversionActionServiceClient->conversionActionName('5173102433' , '324840352');
+            $formattedResourceName = $conversionActionServiceClient->conversionActionName('5173102433' , '818037502');
             $response = $conversionActionServiceClient->getConversionAction($formattedResourceName);
-            dump($response);
+            dump($response);        
         } finally {
             $conversionActionServiceClient->close();
         }

@@ -18,7 +18,7 @@
 
 namespace App;
 
-
+use Carbon\Carbon;
 use GetOpt\GetOpt;
 use Google\Ads\GoogleAds\Examples\Utils\ArgumentNames;
 use Google\Ads\GoogleAds\Examples\Utils\ArgumentParser;
@@ -32,6 +32,7 @@ use Google\Ads\GoogleAds\V8\Services\ClickConversion;
 use Google\Ads\GoogleAds\V8\Services\ClickConversionResult;
 use Google\Ads\GoogleAds\V8\Services\UploadClickConversionsResponse;
 use Google\ApiCore\ApiException;
+use Illuminate\Support\Str;
 
 /**
  * This code example imports offline conversion values for specific clicks to your account.
@@ -64,12 +65,13 @@ class UploadOfflineConversion
         //     ->withOAuth2Credential($oAuth2Credential)
         //     ->build();
         $googleAdsClient = app(GoogleAdsClient::class);
-        $conversionActionId = 0;
-        $conversionDateTime = '';
-        $gclid = '';
-        $conversionValue = '';
+        $conversionActionId = 818037502;
+        $conversionActionId = 817366502;
+        $conversionDateTime = Carbon::now()->subHours(5)->format('Y-m-d H:i:s-00:00');
+        $gclid = 'EAIaIQobChMIjKXAub7F9AIVzm7BCh0oXwY9EAEYASAAEgJpEvD_BwE';
+        $conversionValue = 1;
         try {
-            self::runExample(
+            self::runExample( 
                 $googleAdsClient,
                 self::CUSTOMER_ID,
                 $conversionActionId  ,
@@ -131,9 +133,9 @@ class UploadOfflineConversion
             'conversion_action' =>
                 ResourceNames::forConversionAction($customerId, $conversionActionId),
             'gclid' => $gclid,
-            'conversion_value' => $conversionValue,
             'conversion_date_time' => $conversionDateTime,
-            'currency_code' => 'USD',
+            // 'conversion_value' => $conversionValue,
+            // 'currency_code' => 'USD',
         ]);
 
         // Issues a request to upload the click conversion.

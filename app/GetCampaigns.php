@@ -27,6 +27,9 @@ use Google\Ads\GoogleAds\Lib\V8\GoogleAdsClientBuilder;
 use Google\Ads\GoogleAds\Lib\V8\GoogleAdsException;
 use Google\Ads\GoogleAds\Lib\OAuth2TokenBuilder;
 use Google\Ads\GoogleAds\Lib\V8\GoogleAdsServerStreamDecorator;
+use Google\Ads\GoogleAds\V8\Enums\ConversionActionCategoryEnum\ConversionActionCategory;
+use Google\Ads\GoogleAds\V8\Enums\ConversionActionStatusEnum\ConversionActionStatus;
+use Google\Ads\GoogleAds\V8\Enums\ConversionActionTypeEnum\ConversionActionType;
 use Google\Ads\GoogleAds\V8\Errors\GoogleAdsError;
 use Google\Ads\GoogleAds\V8\Services\GoogleAdsRow;
 use Google\ApiCore\ApiException;
@@ -85,7 +88,19 @@ class GetCampaigns
     {
         $googleAdsServiceClient = $googleAdsClient->getGoogleAdsServiceClient();
         // Creates a query that retrieves all campaigns.
-        $query = 'SELECT campaign.id, campaign.name FROM campaign ORDER BY campaign.id';
+        // $query = 'SELECT campaign.id, campaign.name FROM campaign ORDER BY campaign.id';
+        // $query = 'SELECT customer.id,customer.currency_code,
+        //             customer.conversion_tracking_setting.conversion_tracking_id,
+        //             customer.conversion_tracking_setting.cross_account_conversion_tracking_id,
+        //             FROM customer';
+        $query = 'SELECT conversion_action.id,
+                        conversion_action.name,
+                         conversion_action.status,
+                        conversion_action.type,
+                        conversion_action.category
+                    FROM conversion_action';
+                    dump($query);
+                    
         // Issues a search stream request.
         /** @var GoogleAdsServerStreamDecorator $stream */
         $stream =
@@ -96,15 +111,22 @@ class GetCampaigns
         
         foreach ($stream->iterateAllElements() as $googleAdsRow) {
             /** @var GoogleAdsRow $googleAdsRow */
-            printf(
-                "Campaign with ID %d and name '%s' was found.%s",
-                $googleAdsRow->getCampaign()->getId(),
-                $googleAdsRow->getCampaign()->getName(),
-                PHP_EOL
-            );
-            dump($googleAdsRow);
+       
+                // dump($googleAdsRow->getCampaign()->getId());
+                // dump($googleAdsRow->getCampaign()->getName());
+            // dump($googleAdsRow->getCustomer()->getId());
+            // dump($googleAdsRow->getCustomer()->getCurrencyCode());
+            // dump($googleAdsRow->getCustomer()->getConversionTrackingSetting()->getConversionTrackingId());
+            // dump($googleAdsRow->getCustomer()->getConversionTrackingSetting()->getCrossAccountConversionTrackingId());
+           
+            dump($googleAdsRow->getConversionAction()->getId());
+            dump($googleAdsRow->getConversionAction()->getName());
+            dump($googleAdsRow->getConversionAction()->getResourceName());
+            dump($googleAdsRow->getConversionAction()->getOwnerCustomer());
+            dump($googleAdsRow->getConversionAction()->getName());
+            dump(ConversionActionStatus::name($googleAdsRow->getConversionAction()->getStatus()) );
+            dump(ConversionActionType::name($googleAdsRow->getConversionAction()->getType()) );
+            dump(ConversionActionCategory::name($googleAdsRow->getConversionAction()->getCategory()));
         }
     }
 }
-
-GetCampaigns::main();
