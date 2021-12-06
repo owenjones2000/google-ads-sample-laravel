@@ -37,7 +37,10 @@ use Google\ApiCore\ApiException;
 /** This example gets all campaigns. To add campaigns, run AddCampaigns.php. */
 class GetCampaigns
 {
-    private const CUSTOMER_ID = 5173102433;
+    //loginCustomerId 
+    // private const CUSTOMER_ID = 5173102433;
+    //gclidCustomerId 
+    private const CUSTOMER_ID = 9300261290;  
 
     public static function main()
     {
@@ -59,7 +62,7 @@ class GetCampaigns
                 PHP_EOL
             );
             foreach ($googleAdsException->getGoogleAdsFailure()->getErrors() as $error) {
-                /** @var GoogleAdsError $error */
+                /** @var GoogleAdsError $error */ 
                 printf(
                     "\t%s: %s%s",
                     $error->getErrorCode()->getErrorCode(),
@@ -98,7 +101,10 @@ class GetCampaigns
                          conversion_action.status,
                         conversion_action.type,
                         conversion_action.category
-                    FROM conversion_action';
+                    FROM conversion_action  
+                    WHERE 
+                    conversion_action.name like "%Web%"
+                    ';
                     dump($query);
                     
         // Issues a search stream request.
@@ -123,7 +129,7 @@ class GetCampaigns
             dump($googleAdsRow->getConversionAction()->getName());
             dump($googleAdsRow->getConversionAction()->getResourceName());
             dump($googleAdsRow->getConversionAction()->getOwnerCustomer());
-            dump($googleAdsRow->getConversionAction()->getName());
+            dump($googleAdsRow->getConversionAction()->getAppId());
             dump(ConversionActionStatus::name($googleAdsRow->getConversionAction()->getStatus()) );
             dump(ConversionActionType::name($googleAdsRow->getConversionAction()->getType()) );
             dump(ConversionActionCategory::name($googleAdsRow->getConversionAction()->getCategory()));

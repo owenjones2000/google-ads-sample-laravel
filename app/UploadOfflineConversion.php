@@ -42,7 +42,8 @@ use Illuminate\Support\Str;
  */
 class UploadOfflineConversion
 {
-    private const CUSTOMER_ID = 5173102433;
+    private const CUSTOMER_ID = 9300261290;
+    // private const CUSTOMER_ID = 5173102433;
     private const CONVERSION_ACTION_ID = 'INSERT_CONVERSION_ACTION_ID_HERE';
     // The Google Click ID for which conversions are uploaded.
     private const GCLID = 'INSERT_GCLID_HERE';
@@ -65,8 +66,8 @@ class UploadOfflineConversion
         //     ->withOAuth2Credential($oAuth2Credential)
         //     ->build();
         $googleAdsClient = app(GoogleAdsClient::class);
-        $conversionActionId = 818037502;
-        $conversionActionId = 817366502;
+        $conversionActionId = 821471475;
+        // $conversionActionId = 819783789;
         $conversionDateTime = Carbon::now()->subHours(5)->format('Y-m-d H:i:s-00:00');
         $gclid = 'EAIaIQobChMIjKXAub7F9AIVzm7BCh0oXwY9EAEYASAAEgJpEvD_BwE';
         $conversionValue = 1;
@@ -156,6 +157,9 @@ class UploadOfflineConversion
                 $response->getPartialFailureError()->getMessage(),
                 PHP_EOL
             );
+            foreach ($response->getPartialFailureError()->getDetails() as $key => $detail) {
+                echo $detail->getValue() . "\n";
+            }
         } else {
             // Prints the result if exists.
             /** @var ClickConversionResult $uploadedClickConversion */
