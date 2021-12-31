@@ -66,9 +66,9 @@ class AuthenticateInDesktopApplication
 
         $scopes = self::SCOPE . ' ' . trim(fgets($stdin));
 
-        $clientId = '729447835033-aor3d29jdhnuuksh6idbu96ibhm7qgfu.apps.googleusercontent.com';
+        $clientId = '182218989179-7ih182ufuvv8pedr0c37arhl2b81jig6.apps.googleusercontent.com';
 
-        $clientSecret = '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';
+        $clientSecret = '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';
 
         $oauth2 = new OAuth2(
             [
@@ -116,4 +116,3 @@ EOD;
     }
 }
 
-AuthenticateInDesktopApplication::main();

@@ -39,8 +39,10 @@ class GetCampaigns
 {
     //loginCustomerId 
     // private const CUSTOMER_ID = 5173102433;
-    //gclidCustomerId 
-    private const CUSTOMER_ID = 9300261290;  
+    //skills 
+    // private const CUSTOMER_ID = 9300261290;
+    //live 
+    private const CUSTOMER_ID = 7454704033;
 
     public static function main()
     {
@@ -102,8 +104,8 @@ class GetCampaigns
                         conversion_action.type,
                         conversion_action.category
                     FROM conversion_action  
-                    WHERE 
-                    conversion_action.name like "%Web%"
+                    -- WHERE 
+                    -- conversion_action.name like "%Web%"
                     ';
                     dump($query);
                     

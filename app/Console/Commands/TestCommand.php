@@ -100,8 +100,8 @@ class TestCommand extends Command
 
     public function test3()
     {
-        AuthenticateInWebApplication::main();
-        // AuthenticateInDesktopApplication::main();
+        // AuthenticateInWebApplication::main();
+        AuthenticateInDesktopApplication::main();
     }
     public function test4()
     {
