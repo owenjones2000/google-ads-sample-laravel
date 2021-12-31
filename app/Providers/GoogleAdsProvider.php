@@ -20,9 +20,9 @@ class GoogleAdsProvider extends ServiceProvider
         $this->app->singleton('Google\Ads\GoogleAds\Lib\V8\GoogleAdsClient', function () {
             // Constructs a Google Ads API client configured from the properties file.
             return (new GoogleAdsClientBuilder())
-                ->fromFile(config('app.google_ads_php_path'))
+                ->fromFile(realpath(base_path('google_ads_php.ini')))
                 ->withOAuth2Credential((new OAuth2TokenBuilder())
-                    ->fromFile(config('app.google_ads_php_path'))
+                    ->fromFile(realpath(base_path('google_ads_php.ini')))
                     ->build())
                 ->build();
         });
